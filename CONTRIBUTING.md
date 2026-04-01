@@ -15,7 +15,7 @@ If you find a bug, please help us by submitting an issue to our GitHub repositor
 3.  **Details:** Include as much detail as possible:
     * Steps to reproduce the issue.
     * Expected vs. actual behavior.
-    * Your PHP, Laravel, and package version(s).
+    * Your PHP, Magento 2, and package version(s).
     * Relevant stack trace or error messages.
 
 ## ✨ Suggesting Features/Enhancements
@@ -23,7 +23,7 @@ If you find a bug, please help us by submitting an issue to our GitHub repositor
 We love hearing new ideas! For major features or significant changes:
 
 1.  **Discuss First:** Please open an issue to discuss the feature with the maintainers **before** investing time in writing code. This ensures the idea aligns with the project's goals.
-2.  **Scope:** Ensure the suggestion relates directly to OpenTelemetry integration within Laravel.
+2.  **Scope:** Ensure the suggestion relates directly to OpenTelemetry integration within Magento 2.
 
 ## 💻 Development Workflow
 
@@ -33,7 +33,7 @@ To contribute code, please follow these steps:
 2.  **Clone:** Clone your forked repository to your local machine.
 3.  **Setup:** Follow the installation and setup steps detailed in the **[README.md](README.md)**.
 4.  **Branch:** Create a new branch for your feature or fix (e.g., `feature/add-trace-id` or `fix/error-reporting`).
-5.  **Code:** Write your code, ensuring it adheres to standard Laravel coding practices.
+5.  **Code:** Write your code, ensuring it adheres to standard Magento 2 coding practices.
 6.  **Test:** **All contributions must include tests.** If you are fixing a bug, add a failing test that is fixed by your code. If you are adding a feature, add tests to cover the new functionality.
 7.  **Commit:** Commit your changes using clear and descriptive commit messages.
 
