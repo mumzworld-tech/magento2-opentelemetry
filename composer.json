@@ -2,7 +2,7 @@
   "name": "mumzworld/magento2-opentelemetry",
   "description": "OpenTelemetry integration package for Magento 2 applications with complete observability stack",
   "type": "library",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "authors": [
     {
