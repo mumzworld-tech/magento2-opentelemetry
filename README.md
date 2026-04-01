@@ -5,6 +5,8 @@
 
 OpenTelemetry integration package for Magento 2 applications with complete observability stack
 
+[![Packagist Version](https://img.shields.io/github/v/tag/mumzworld-tech/magento2-opentelemetry?logo=packagist&sort=semver&label=packagist&style=for-the-badge)](https://packagist.org/packages/mumzworld/magento2-opentelemetry)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/mumzworld/magento2-opentelemetry.svg?logo=composer&style=for-the-badge)](https://packagist.org/packages/mumzworld/magento2-opentelemetry/stats)
 ![Supported Magento Versions](https://img.shields.io/badge/magento-%202.4-brightgreen.svg?logo=magento&longCache=true&style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?color=%23234&style=for-the-badge)
 
