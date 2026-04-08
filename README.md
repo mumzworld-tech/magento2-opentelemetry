@@ -27,6 +27,10 @@ A Composer library that adds [OpenTelemetry](https://opentelemetry.io/) tracing 
 
 ![OpenTelemetry Flow](docs/opentelemetry-flow.png)
 
+## 📊 Grafana Traces
+
+![Grafana Traces](docs/grafana-traces.png)
+
 ## ⚙️ How OpenTelemetry PHP SDK Works Under the Hood
 
 ```
