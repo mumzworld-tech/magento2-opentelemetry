@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Mumzworld\OpenTelemetry\Instrumentation\Misc;
 
-use Magento\InventorySales\Model\GetProductSalableQty;
 use Magento\CatalogInventory\Observer\QuantityValidatorObserver;
 use Mumzworld\OpenTelemetry\Instrumentation\AbstractInstrumentation;
 use Throwable;
@@ -34,47 +33,7 @@ class InventoryInstrumentation extends AbstractInstrumentation
      */
     public static function register(): void
     {
-        //self::instrumentGetProductSalableQty();
         self::instrumentQuantityValidatorObserver();
-    }
-
-    /**
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    private static function instrumentGetProductSalableQty(): void
-    {
-        hook(
-            GetProductSalableQty::class,
-            'execute',
-            static function (
-                GetProductSalableQty  $subject,
-                array   $params,
-                string  $class,
-                string  $function,
-                ?string $filename,
-                ?int    $lineno,
-            ) {
-                $spanName = sprintf('%s %s', self::SPAN_NAME_PREFIX, self::extractClassName($class));
-                $builder = self::createSpanBuilder(
-                    $spanName,
-                    $function,
-                    $class,
-                    $filename,
-                    $lineno,
-                );
-
-                self::startSpanAndAttachToContext($builder);
-            },
-            static function (
-                GetProductSalableQty     $subject,
-                array      $params,
-                $returnValue,
-                ?Throwable $exception,
-            ) {
-                self::endSpan($exception);
-            },
-        );
     }
 
     /**

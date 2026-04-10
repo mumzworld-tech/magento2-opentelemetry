@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Mumzworld\OpenTelemetry\Instrumentation\Core;
 
-use Magento\Framework\Event\Manager\Proxy as ManagerProxy;
 use Magento\Framework\Event\InvokerInterface;
 use Mumzworld\OpenTelemetry\Instrumentation\AbstractInstrumentation;
 use OpenTelemetry\API\Trace\SpanKind;
@@ -41,52 +40,7 @@ class EventObserverInstrumentation extends AbstractInstrumentation
      */
     public static function register(): void
     {
-        // Only uncomment if required
-        #self::instrumentEventManagerDispatch();
         self::instrumentEventInvokerDispatch();
-    }
-
-    /**
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    private static function instrumentEventManagerDispatch(): void
-    {
-        hook(
-            ManagerProxy::class,
-            'dispatch',
-            static function (
-                ManagerProxy     $subject,
-                array       $params,
-                string      $class,
-                string      $function,
-                ?string     $filename,
-                ?int        $lineno,
-            ) {
-                $eventName = $params[0] ?? 'NA';
-
-                $spanName = sprintf('%s %s', self::SPAN_NAME_PREFIX, $eventName);
-                $builder = self::createSpanBuilder(
-                    $spanName,
-                    $function,
-                    $class,
-                    $filename,
-                    $lineno,
-                )
-                    ->setSpanKind(SpanKind::KIND_INTERNAL);
-
-                self::startSpanAndAttachToContext($builder);
-            },
-            static function (
-                ManagerProxy     $subject,
-                array       $params,
-                mixed       $returnValue,
-                ?Throwable  $exception,
-            ) {
-                self::endSpan($exception);
-            },
-        );
     }
 
     /**
@@ -112,7 +66,7 @@ class EventObserverInstrumentation extends AbstractInstrumentation
                     return;
                 }
 
-                $spanName = sprintf('Observer: %s', $observerName);
+                $spanName = sprintf('%s Observer: %s', self::SPAN_NAME_PREFIX, $observerName);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,

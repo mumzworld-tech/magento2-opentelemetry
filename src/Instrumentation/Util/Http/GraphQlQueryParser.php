@@ -19,7 +19,7 @@ class GraphQlQueryParser
      * Works with both POST requests (JSON body) and GET requests (URL parameters).
      *
      * @param RequestInterface $request
-     * @return array{type: string, operation: string}
+     * @return array{type: string, operation: string|null}
      * phpcs:disable Magento2.Functions.StaticFunction
      */
     public static function parseRequest(RequestInterface $request): array
@@ -43,7 +43,7 @@ class GraphQlQueryParser
             $url = (string)$request->getUri();
 
             return self::parseUrl($url);
-        } catch (Exception $e) {
+        } catch (Exception) {
 
             return $result;
         }
@@ -53,7 +53,7 @@ class GraphQlQueryParser
      * Parse decoded JSON data from a GraphQL request
      *
      * @param array $data
-     * @return array{type: string, operation: string}
+     * @return array{type: string, operation: string|null}
      */
     public static function parseJsonData(array $data): array
     {
@@ -90,7 +90,7 @@ class GraphQlQueryParser
      * Parse a GraphQL URL to extract query type and operation name.
      *
      * @param string $url The URL containing GraphQL parameters
-     * @return array{type: string, operation: string} Associative array with 'type' and 'operation' keys
+     * @return array{type: string, operation: string|null} Associative array with 'type' and 'operation' keys
      */
     public static function parseUrl(string $url): array
     {
@@ -139,7 +139,7 @@ class GraphQlQueryParser
      * Parse a raw GraphQL query string to extract query type and operation name.
      *
      * @param string $graphqlString
-     * @return array{type: string, operation: string}
+     * @return array{type: string, operation: string|null}
      */
     public static function parseQueryString(string $graphqlString): array
     {

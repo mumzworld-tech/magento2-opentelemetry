@@ -9,6 +9,7 @@ use Mumzworld\OpenTelemetry\Instrumentation\Registrar\CoreInstrumentationRegistr
 use Mumzworld\OpenTelemetry\Instrumentation\Registrar\DatabaseInstrumentationRegistrar;
 use Mumzworld\OpenTelemetry\Instrumentation\Registrar\EntityInstrumentationRegistrar;
 use Mumzworld\OpenTelemetry\Instrumentation\Registrar\HttpInstrumentationRegistrar;
+use Mumzworld\OpenTelemetry\Instrumentation\Registrar\MiscInstrumentationRegistrar;
 
 if (!InstrumentationGuard::isInstrumentationEligible()) {
     return;
@@ -20,3 +21,9 @@ DatabaseInstrumentationRegistrar::register();
 CliInstrumentationRegistrar::register();
 HttpInstrumentationRegistrar::register();
 EntityInstrumentationRegistrar::register();
+
+// Optional: enable extended instrumentation (pricing, inventory, shipping, sales rules, repositories, etc.)
+// Set OTEL_MAGENTO_MISC_INSTRUMENTATION=true in your environment to activate.
+if (getenv('OTEL_MAGENTO_MISC_INSTRUMENTATION') === 'true') {
+    MiscInstrumentationRegistrar::register();
+}

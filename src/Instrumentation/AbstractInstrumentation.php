@@ -53,7 +53,7 @@ abstract class AbstractInstrumentation
     protected static function updateRootSpanName(string $name): ?SpanInterface
     {
         $rootSpan = LocalRootSpan::current();
-        if ($rootSpan && !empty($name)) {
+        if ($rootSpan->isRecording() && !empty($name)) {
             $rootSpan->updateName($name);
         }
         return $rootSpan;

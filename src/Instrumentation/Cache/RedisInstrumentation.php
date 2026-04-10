@@ -36,61 +36,10 @@ class RedisInstrumentation extends AbstractInstrumentation
      */
     public static function register(): void
     {
-        // Note: only uncomment if required
-        #self::instrumentLoad();
         self::instrumentTest();
         self::instrumentSave();
         self::instrumentClean();
         self::instrumentRemove();
-    }
-
-    /**
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    private static function instrumentLoad(): void
-    {
-        hook(
-            Redis::class,
-            'load',
-            static function (
-                Redis     $subject,
-                array       $params,
-                string      $class,
-                string      $function,
-                ?string     $filename,
-                ?int        $lineno,
-            ) {
-                $cacheId = $params[0] ?? 'NA';
-                $spanName = sprintf('%s load', self::SPAN_NAME_PREFIX);
-                $builder = self::createSpanBuilder(
-                    $spanName,
-                    $function,
-                    $class,
-                    $filename,
-                    $lineno,
-                )
-                    ->setSpanKind(SpanKind::KIND_CLIENT)
-                    ->setAttribute(TraceAttributes::DB_SYSTEM_NAME, TraceAttributeValues::DB_SYSTEM_REDIS)
-                    ->setAttribute(TraceAttributes::DB_OPERATION_NAME, 'load')
-                    ->setAttribute('db.redis.save.cacheId', $cacheId);
-
-                self::startSpanAndAttachToContext($builder);
-            },
-            static function (
-                Redis     $subject,
-                array       $params,
-                mixed       $returnValue,
-                ?Throwable  $exception,
-            ) {
-                // Only uncomment if required. Data might be too big or might have sensitive information
-                /*$spanAttributes = [
-                    'db.redis.load.cacheData' => self::saferStringEncode($returnValue)
-                ];*/
-                self::endSpan($exception);
-            },
-        );
     }
 
     /**
