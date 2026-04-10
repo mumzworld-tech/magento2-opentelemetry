@@ -25,13 +25,6 @@ class EavEntityInstrumentation extends AbstractInstrumentation
         \Magento\Customer\Model\ResourceModel\Address\Interceptor::class,
     ];
 
-    private const INSTRUMENTED_COLLECTION_CLASSES = [
-        \Magento\Catalog\Model\ResourceModel\Product\Collection\Interceptor::class,
-        \Magento\Catalog\Model\ResourceModel\Category\Collection\Interceptor::class,
-        \Magento\Customer\Model\ResourceModel\Customer\Collection\Interceptor::class,
-        \Magento\Customer\Model\ResourceModel\Address\Collection\Interceptor::class,
-    ];
-
     /**
      * @inheritdoc
      * phpcs:disable Magento2.Functions.StaticFunction
@@ -52,10 +45,7 @@ class EavEntityInstrumentation extends AbstractInstrumentation
             }
         }
 
-        // @todo Note: giving more false positives - TBC
-        /*foreach (self::INSTRUMENTED_COLLECTION_CLASSES as $class) {
-            self::hookEavCollectionLoadOperation($class);
-        }*/
+        // Note: collection-level tracing intentionally disabled (too noisy — see hookEavCollectionLoadOperation)
     }
 
     /**
@@ -103,45 +93,6 @@ class EavEntityInstrumentation extends AbstractInstrumentation
                         );
                     }
                 }
-
-                self::startSpanAndAttachToContext($builder);
-            },
-            static function (
-                object $subject,
-                array $params,
-                mixed $returnValue,
-                ?Throwable $exception,
-            ) use ($method) {
-                // @todo add entity-id for $method === save operation
-                self::endSpan($exception);
-            },
-        );
-    }
-
-    /**
-     * @param string $class
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-     */
-    private static function hookEavCollectionLoadOperation(string $class): void
-    {
-        hook(
-            $class,
-            'load',
-            static function (
-                object $subject,
-                array $params,
-                string $class,
-                string $function,
-                ?string $filename,
-                ?int $lineno,
-            ) {
-                $spanName = sprintf('EavCollection: %s: load', self::extractCollectionName($class));
-                $builder = self::createSpanBuilder($spanName, $function, $class, $filename, $lineno)
-                    ->setSpanKind(SpanKind::KIND_INTERNAL)
-                    ->setAttribute('magento.entity.eav.collection.operation', 'load')
-                    ->setAttribute('magento.entity.eav.collection.class', get_class($subject));
 
                 self::startSpanAndAttachToContext($builder);
             },

@@ -11,8 +11,7 @@ namespace Mumzworld\OpenTelemetry\Instrumentation\Misc;
 
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\CategoryRepository;
-//use Magento\Quote\Model\QuoteRepository;
-use Mumzworld\Registry\Model\Quote\Model\QuoteRepository\Interceptor as QuoteRepository;
+use Magento\Quote\Model\QuoteRepository;
 use Magento\Customer\Model\ResourceModel\CustomerRepository;
 use Mumzworld\OpenTelemetry\Instrumentation\AbstractInstrumentation;
 use Throwable;
@@ -63,7 +62,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'ProductRepository', 'get');
+                $spanName = sprintf('%s ProductRepository::get', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -100,7 +99,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'ProductRepository', 'getById');
+                $spanName = sprintf('%s ProductRepository::getById', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -136,7 +135,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'CategoryRepository', 'get');
+                $spanName = sprintf('%s CategoryRepository::get', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -172,7 +171,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'QuoteRepository', 'get');
+                $spanName = sprintf('%s QuoteRepository::get', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -208,7 +207,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'QuoteRepository', 'getActive');
+                $spanName = sprintf('%s QuoteRepository::getActive', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -243,7 +242,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'CustomerRepository', 'getById');
+                $spanName = sprintf('%s CustomerRepository::getById', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -279,7 +278,7 @@ class RepositoryInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $spanName = sprintf('%s: %s', 'CustomerRepository', 'get');
+                $spanName = sprintf('%s CustomerRepository::get', self::SPAN_NAME_PREFIX);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,

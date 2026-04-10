@@ -27,15 +27,6 @@ class FlatEntityInstrumentation extends AbstractInstrumentation
         \Magento\Sales\Model\ResourceModel\Order\Creditmemo::class,
     ];
 
-    private const INSTRUMENTED_COLLECTION_CLASSES = [
-        \Magento\Quote\Model\ResourceModel\Quote\Collection::class,
-        \Magento\Quote\Model\ResourceModel\Quote\Item\Collection::class,
-        \Magento\Sales\Model\ResourceModel\Order\Collection::class,
-        \Magento\Sales\Model\ResourceModel\Order\Item\Collection::class,
-        \Magento\Sales\Model\ResourceModel\Order\Invoice\Collection::class,
-        \Magento\Sales\Model\ResourceModel\Order\Creditmemo\Collection::class,
-    ];
-
     /**
      * @inheritdoc
      * phpcs:disable Magento2.Functions.StaticFunction
@@ -56,10 +47,7 @@ class FlatEntityInstrumentation extends AbstractInstrumentation
             }
         }
 
-        // @todo Note: giving more false positives - TBC
-        /*foreach (self::INSTRUMENTED_COLLECTION_CLASSES as $class) {
-            self::hookFlatCollectionLoadOperation($class);
-        }*/
+        // Note: collection-level tracing intentionally disabled (too noisy)
     }
 
     /**
@@ -107,45 +95,6 @@ class FlatEntityInstrumentation extends AbstractInstrumentation
                         );
                     }
                 }
-
-                self::startSpanAndAttachToContext($builder);
-            },
-            static function (
-                object $subject,
-                array $params,
-                mixed $returnValue,
-                ?Throwable $exception,
-            ) use ($method) {
-                // @todo add entity-id for $method === save operation
-                self::endSpan($exception);
-            },
-        );
-    }
-
-    /**
-     * @param string $class
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-     */
-    private static function hookFlatCollectionLoadOperation(string $class): void
-    {
-        hook(
-            $class,
-            'load',
-            static function (
-                object $subject,
-                array $params,
-                string $class,
-                string $function,
-                ?string $filename,
-                ?int $lineno,
-            ) {
-                $spanName = sprintf('FlatCollection: %s: load', self::extractCollectionName($class));
-                $builder = self::createSpanBuilder($spanName, $function, $class, $filename, $lineno)
-                    ->setSpanKind(SpanKind::KIND_INTERNAL)
-                    ->setAttribute('magento.entity.flat.collection.operation', 'load')
-                    ->setAttribute('magento.entity.flat.collection.class', get_class($subject));
 
                 self::startSpanAndAttachToContext($builder);
             },

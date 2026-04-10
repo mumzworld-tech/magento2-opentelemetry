@@ -57,7 +57,7 @@ class AbstractDbInstrumentation extends AbstractInstrumentation
             ) {
                 $object = $params[0];
                 //$spanName = sprintf('%s: %s', 'DbLoad', self::extractClassName(get_class($object)));
-                $spanName = sprintf('%s: %s', 'DbLoad', $subject->getMainTable());
+                $spanName = sprintf('%s load: %s', self::SPAN_NAME_PREFIX, $subject->getMainTable());
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -98,7 +98,7 @@ class AbstractDbInstrumentation extends AbstractInstrumentation
             ) {
                 $object = $params[0];
                 //$spanName = sprintf('%s: %s', 'DbSave',  self::extractClassName(get_class($object)));
-                $spanName = sprintf('%s: %s', 'DbSave',  $subject->getMainTable());
+                $spanName = sprintf('%s save: %s', self::SPAN_NAME_PREFIX, $subject->getMainTable());
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,
@@ -139,7 +139,7 @@ class AbstractDbInstrumentation extends AbstractInstrumentation
             ) {
                 $object = $params[0];
                 //$spanName = sprintf('%s: %s', 'DbDelete',  self::extractClassName(get_class($object)));
-                $spanName = sprintf('%s: %s', 'DbDelete',  $subject->getMainTable());
+                $spanName = sprintf('%s delete: %s', self::SPAN_NAME_PREFIX, $subject->getMainTable());
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,

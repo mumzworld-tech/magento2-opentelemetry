@@ -217,7 +217,7 @@ class GraphQlInstrumentation extends AbstractInstrumentation
                 }
                 $spanCounters[$key] = ($spanCounters[$key] ?? 0) + 1;
 
-                /** @var ContextInterface $context */
+                /** @var ContextInterface|null $context */
                 $context = $params[1] ?? null;
                 //$info = $params[2] ?? null;
                 $value = $params[3] ?? [];

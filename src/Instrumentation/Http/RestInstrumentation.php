@@ -163,7 +163,7 @@ class RestInstrumentation extends AbstractInstrumentation
                         $rootSpan->setStatus(StatusCode::STATUS_ERROR);
                     }
                 }
-                self::endSpan($subject);
+                self::endSpan($exception);
             },
         );
     }

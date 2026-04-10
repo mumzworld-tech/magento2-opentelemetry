@@ -88,7 +88,6 @@ trait SpanBuilderTrait
         if ($exception) {
             $span->recordException($exception, [TraceAttributes::EXCEPTION_MESSAGE => $exception->getMessage()]);
             $span->setStatus(StatusCode::STATUS_ERROR, $exception->getMessage());
-            $span->setAttribute(TraceAttributes::HTTP_RESPONSE_STATUS_CODE, 402);
         }
 
         $span->end();

@@ -53,8 +53,11 @@ class HttpClientInstrumentation extends AbstractInstrumentation
                 ?string $filename,
                 ?int    $lineno,
             ) {
-                $request = $params[0];
-                $spanName = sprintf('%s: %s/%s', $request->getMethod(), $request->getUri()->getHost(), $request->getUri()->getPath());
+                $request = $params[0] ?? null;
+                $method = $request?->getMethod() ?? 'UNKNOWN';
+                $host = $request?->getUri()?->getHost() ?? 'unknown';
+                $path = $request?->getUri()?->getPath() ?? '';
+                $spanName = sprintf('%s %s %s/%s', self::SPAN_NAME_PREFIX, $method, $host, $path);
                 $builder = self::createSpanBuilder(
                     $spanName,
                     $function,

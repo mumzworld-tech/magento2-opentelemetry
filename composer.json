@@ -1,31 +1,31 @@
 {
-  "name": "mumzworld/magento2-opentelemetry",
-  "description": "OpenTelemetry integration package for Magento 2 applications with complete observability stack",
-  "type": "library",
-  "version": "1.0.0",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Mumzworld Development Team",
-      "email": "dev@mumzworld.com"
-    }
-  ],
-  "require": {
-    "php": "^8.1",
-    "magento/framework": "*",
-    "open-telemetry/api": "^1.2",
-    "open-telemetry/exporter-otlp": "^1.2",
-    "open-telemetry/sdk": "^1.2",
-    "open-telemetry/sem-conv": "^1.30"
-  },
-  "autoload": {
-    "psr-4": {
-      "Mumzworld\\OpenTelemetry\\": "src/"
+    "name": "mumzworld/magento2-opentelemetry",
+    "description": "OpenTelemetry integration package for Magento 2 applications with complete observability stack",
+    "type": "library",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mumzworld Development Team",
+            "email": "dev@mumzworld.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "magento/framework": ">=102.0.0",
+        "open-telemetry/api": "^1.2",
+        "open-telemetry/exporter-otlp": "^1.2",
+        "open-telemetry/sdk": "^1.2",
+        "open-telemetry/sem-conv": "^1.30"
     },
-    "files": [
-      "_register.php"
-    ]
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "autoload": {
+        "psr-4": {
+            "Mumzworld\\OpenTelemetry\\": "src/"
+        },
+        "files": [
+            "_register.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

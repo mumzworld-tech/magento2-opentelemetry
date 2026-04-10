@@ -86,12 +86,8 @@ trait AttributeSanitizerTrait
      */
     public static function saferJsonDecode(string $data): array
     {
-        try {
-            return json_decode($data, true);
-        } catch (Exception $e) {
-            // Log the error if necessary
-            return [];
-        }
+        $decoded = json_decode($data, true);
+        return is_array($decoded) ? $decoded : [];
     }
 
     /**
